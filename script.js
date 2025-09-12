@@ -1,139 +1,71 @@
-  
-//   card 1
-  const cart = []
-  const cartBox = document.getElementById("yourCart")
-  const addBtn = document.getElementById("card1")
+const cart = []
+const cartBox = document.getElementById("yourCart")
+const sum = document.getElementById("total")
+const allclear = document.getElementById("clearCart")
 
-  addBtn.addEventListener("click", function() {
-    const name = document.getElementById("mango-tree").innerText
-    const price = document.getElementById("mango-tree-price").innerText
+// cart
+const heading = document.createElement("h2")
+heading.className = "text-2xl font-semibold pt-[10px] pb-[10px]"
+heading.innerText = "Your Cart (0 items)"
+cartBox.insertBefore(heading, sum)
 
-    // cart array add
-    cart.push({ name, price })
+// total + count
+function updateTotal() {
+  let total = 0
+  cart.forEach(item => {
+    total += parseInt(item.price.replace("৳", ""))
+  })
+  sum.innerText = "Total: ৳" + total
+  heading.innerText = `Your Cart (${cart.length} items)`
+}
 
-    // UI update
-    const item = document.createElement("p")
-    item.innerText = name + " - " + price + " ";
+// Add to cart
+function addToCart(nameId, priceId) {
+  const name = document.getElementById(nameId).innerText
+  const price = document.getElementById(priceId).innerText
 
-    // Cancel button
-    const cancelBtn = document.createElement("button")
-    cancelBtn.innerText = "❌"
-    cancelBtn.style.cursor = "pointer"
-    cancelBtn.style.marginLeft = "10px"
+  cart.push({ name, price })
 
-    // cancel button click event
-    cancelBtn.addEventListener("click", function() {
-      cartBox.removeChild(item);
-      const index = cart.findIndex(i => i.name === name && i.price === price);
-      if(index > -1) cart.splice(index, 1)
-    })
-    item.appendChild(cancelBtn)
-    cartBox.appendChild(item)
+  const item = document.createElement("div")
+  item.className = "flex justify-between items-center mt-2 bg-[#F9FAFB] p-2 rounded-md"
+
+  const itemText = document.createElement("span")
+  itemText.innerText = name + " - " + price
+
+  const cancelBtn = document.createElement("button")
+  cancelBtn.innerText = "❌"
+  cancelBtn.style.cursor = "pointer"
+  cancelBtn.addEventListener("click", function () {
+    cartBox.removeChild(item)
+    const index = cart.findIndex(i => i.name === name && i.price === price)
+    if (index > -1) cart.splice(index, 1)
+    updateTotal()
   })
 
+  item.appendChild(itemText)
+  item.appendChild(cancelBtn)
+  cartBox.insertBefore(item, sum)
+  updateTotal()
+}
 
-//   card 2
-
-const cart2 = []
-  const cartBox2 = document.getElementById("yourCart")
-  const addBtn2 = document.getElementById("card2")
-
-  addBtn2.addEventListener("click", function() {
-    const name = document.getElementById("jack-tree").innerText
-    const price = document.getElementById("jack-tree-price").innerText
-
-    // cart array add
-    cart.push({ name, price })
-
-    // UI update
-    const item = document.createElement("p")
-    item.innerText = name + " - " + price + " ";
-
-    // Cancel button
-    const cancelBtn = document.createElement("button")
-    cancelBtn.innerText = "❌"
-    cancelBtn.style.cursor = "pointer"
-    cancelBtn.style.marginLeft = "10px"
-
-    // cancel button click event
-    cancelBtn.addEventListener("click", function() {
-      cartBox.removeChild(item);
-      const index = cart.findIndex(i => i.name === name && i.price === price);
-      if(index > -1) cart.splice(index, 1)
-    })
-    item.appendChild(cancelBtn)
-    cartBox.appendChild(item)
-  })
-
-//   card 3
-
-const cart3 = []
-  const cartBox3 = document.getElementById("yourCart")
-  const addBtn3 = document.getElementById("card3")
-
-  addBtn3.addEventListener("click", function() {
-    const name = document.getElementById("banana-tree").innerText
-    const price = document.getElementById("banana-tree-price").innerText
-
-    // cart array add
-    cart.push({ name, price })
-
-    // UI update
-    const item = document.createElement("p")
-    item.innerText = name + " - " + price + " ";
-
-    // Cancel button
-    const cancelBtn = document.createElement("button")
-    cancelBtn.innerText = "❌"
-    cancelBtn.style.cursor = "pointer"
-    cancelBtn.style.marginLeft = "10px"
-
-    // cancel button click event
-    cancelBtn.addEventListener("click", function() {
-      cartBox.removeChild(item);
-      const index = cart.findIndex(i => i.name === name && i.price === price);
-      if(index > -1) cart.splice(index, 1)
-    })
-    item.appendChild(cancelBtn)
-    cartBox.appendChild(item)
-  })
-
-  //   card 4
-
-const cart4 = []
-  const cartBox4 = document.getElementById("yourCart")
-  const addBtn4 = document.getElementById("card4")
-
-  addBtn4.addEventListener("click", function() {
-    const name = document.getElementById("Bamboo-tree").innerText
-    const price = document.getElementById("Bamboo-tree-price").innerText
-
-    // cart array add
-    cart.push({ name, price })
-
-    // UI update
-    const item = document.createElement("p")
-    item.innerText = name + " - " + price + " ";
-
-    // Cancel button
-    const cancelBtn = document.createElement("button")
-    cancelBtn.innerText = "❌"
-    cancelBtn.style.cursor = "pointer"
-    cancelBtn.style.marginLeft = "10px"
-
-    // cancel button click event
-    cancelBtn.addEventListener("click", function() {
-      cartBox.removeChild(item);
-      const index = cart.findIndex(i => i.name === name && i.price === price);
-      if(index > -1) cart.splice(index, 1)
-    })
-    item.appendChild(cancelBtn)
-    cartBox.appendChild(item)
-  })
-
-
-  
-
-  for(let n = 1; n<13 ; n++){
-    
+// clear
+allclear.addEventListener("click", function () {
+  cart.length = 0
+  while (cartBox.children.length > 3) { 
+    cartBox.removeChild(cartBox.children[2])
   }
+  updateTotal()
+})
+
+document.getElementById("card1").addEventListener("click", () => addToCart("mango-tree", "mango-tree-price"))
+document.getElementById("card2").addEventListener("click", () => addToCart("jack-tree", "jack-tree-price"))
+document.getElementById("card3").addEventListener("click", () => addToCart("banana-tree", "banana-tree-price"))
+document.getElementById("card4").addEventListener("click", () => addToCart("Bamboo-tree", "Bamboo-tree-price"))
+document.getElementById("card5").addEventListener("click", () => addToCart("Teak-Tree", "Teak-Tree-price"))
+document.getElementById("card6").addEventListener("click", () => addToCart("Kanthalichapa", "Kanthalichapa-price"))
+document.getElementById("card7").addEventListener("click", () => addToCart("Baby-Coconut-Palm-tree", "Baby-Coconut-Palm-tree-price"))
+document.getElementById("card8").addEventListener("click", () => addToCart("rose", "rose-price"))
+document.getElementById("card9").addEventListener("click", () => addToCart("Marigold", "Marigold-price"))
+document.getElementById("card10").addEventListener("click", () => addToCart("Madhabilata", "Madhabilata-price"))
+document.getElementById("card11").addEventListener("click", () => addToCart("Waterlettuce", "Waterlettuce-price"))
+document.getElementById("card12").addEventListener("click", () => addToCart("Tuberose", "Tuberose-price"))
