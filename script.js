@@ -97,3 +97,43 @@ const cart3 = []
     item.appendChild(cancelBtn)
     cartBox.appendChild(item)
   })
+
+  //   card 4
+
+const cart4 = []
+  const cartBox4 = document.getElementById("yourCart")
+  const addBtn4 = document.getElementById("card4")
+
+  addBtn4.addEventListener("click", function() {
+    const name = document.getElementById("Bamboo-tree").innerText
+    const price = document.getElementById("Bamboo-tree-price").innerText
+
+    // cart array add
+    cart.push({ name, price })
+
+    // UI update
+    const item = document.createElement("p")
+    item.innerText = name + " - " + price + " ";
+
+    // Cancel button
+    const cancelBtn = document.createElement("button")
+    cancelBtn.innerText = "❌"
+    cancelBtn.style.cursor = "pointer"
+    cancelBtn.style.marginLeft = "10px"
+
+    // cancel button click event
+    cancelBtn.addEventListener("click", function() {
+      cartBox.removeChild(item);
+      const index = cart.findIndex(i => i.name === name && i.price === price);
+      if(index > -1) cart.splice(index, 1)
+    })
+    item.appendChild(cancelBtn)
+    cartBox.appendChild(item)
+  })
+
+
+  
+
+  for(let n = 1; n<13 ; n++){
+    
+  }
