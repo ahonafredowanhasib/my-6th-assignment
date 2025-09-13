@@ -51,11 +51,11 @@ function addToCart(nameId, priceId) {
 // clear
 allclear.addEventListener("click", function () {
   cart.length = 0
-  while (cartBox.children.length > 3) { 
-    cartBox.removeChild(cartBox.children[2])
-  }
+  const items = cartBox.querySelectorAll(".flex.justify-between")
+  items.forEach(item => item.remove())
   updateTotal()
 })
+
 
 document.getElementById("card1").addEventListener("click", () => addToCart("mango-tree", "mango-tree-price"))
 document.getElementById("card2").addEventListener("click", () => addToCart("jack-tree", "jack-tree-price"))
@@ -69,3 +69,23 @@ document.getElementById("card9").addEventListener("click", () => addToCart("Mari
 document.getElementById("card10").addEventListener("click", () => addToCart("Madhabilata", "Madhabilata-price"))
 document.getElementById("card11").addEventListener("click", () => addToCart("Waterlettuce", "Waterlettuce-price"))
 document.getElementById("card12").addEventListener("click", () => addToCart("Tuberose", "Tuberose-price"))
+
+
+// cards
+const cards = document.querySelectorAll(".grid > section")
+const categoryBtns = document.querySelectorAll(".space-y-3 h5")
+categoryBtns.forEach(btn => {
+  btn.addEventListener("click", () => {
+    const category = btn.innerText.trim()
+
+    cards.forEach(card => {
+      const cardCategory = card.getAttribute("data-category")
+
+      if (category === "All Trees" || cardCategory === category) {
+        card.style.display = "block" 
+      } else {
+        card.style.display = "none" 
+      }
+    })
+  })
+})
