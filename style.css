@@ -19,6 +19,28 @@
   font-weight: 700;
   font-style: normal;
 }
+        
+#post-conainer{
+  max-width: 1160px;
+  margin: 60px auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 10px;
+  align-items: center;
+   row-gap: 5px;
+}
+.post-card{
+  border: 1px solid #ddd;
+  border-radius: 10px;
+           
+}
+.post-card p {
+    text-align: justify;
+}
+.post-card img {
+  display: block;
+            
+}
 
 @media (max-width: 768px) {
   body {
